@@ -30,7 +30,31 @@ console.log(factorial(5));
 // 2. Compute the sum of an array of integers.
 // Example:  sum([1, 2, 3, 4, 5, 6]);  // 21
 var sum = function(array) {
+  // base case: if array length is 0 return zero
+  if (!array.length) {
+    return 0;
+  }
+  // sum first number and recurse over the rest of the array
+  return array[0] + sum(array.slice(1));
 };
+
+// console.log( sum([1, 2, 3, 4, 5, 6]) );  // 21
+
+/**
+     1          [2, 3, 4, 5, 6]
+                 /           \
+                2          [3, 4, 5, 6]
+                            /     \
+                           3      [4, 5, 6]
+                                    /     \
+                                   4      [5, 6]
+                                          /    \
+                                         5     [6] 
+                                               /  \
+                                              6    []      
+                                                    |
+                                                    0
+**/
 
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
