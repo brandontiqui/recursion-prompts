@@ -58,8 +58,42 @@ var sum = function(array) {
 
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
-var arraySum = function(array) {
+var flatten = function(array, i) {
+/**
+  helper function
+**/
+  // flatten array
+  // debugger;
+  // initialize index
+  var i = i || 0;
+  
+  // create results array
+  var numbers = [];
+ 
+  // setup outer loop to control iteration over all items in the array
+  for (; i < array.length; i++) {
+    // if first item in array is an array
+    if (Array.isArray(array[i])) {
+      // recurse
+      numbers = numbers.concat(flatten(array[i])); // pass the array to be broken down into numbers
+    } else { // else value is a number
+      // concat number to results array 
+      numbers = numbers.concat(array[i]);
+      // return? not needed
+    }
+  }
+  return numbers;
 };
+console.assert( JSON.stringify(flatten([1,[2,3],[[4]],5])) === '[1,2,3,4,5]' );
+console.assert( JSON.stringify(flatten([5, 4, 3])) === '[5,4,3]' );
+console.assert(typeof flatten === 'function' );
+
+var arraySum = function(array) {
+  var numbers = flatten(array);
+  return sum(numbers);
+};
+
+console.assert( arraySum([1,[2,3],[[4]],5]) === 15);
 
 // 4. Check if a number is even.
 var isEven = function(n) {
